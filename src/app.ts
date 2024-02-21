@@ -10,7 +10,7 @@ import { envs } from './plugins/envs.plugin';
 
 function main(){
 
-    // Server.start()
+    Server.start()
     // console.log( envs );
 
 };
