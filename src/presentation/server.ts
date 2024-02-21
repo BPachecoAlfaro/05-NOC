@@ -1,6 +1,7 @@
 import { CheckService } from '../domain/use-cases/checks/check-service';
 import { FileSystemDatasource } from '../infrastructure/datasources/file-system.datasource';
 import { LogRepositoryImpl } from '../infrastructure/repositories/log.repository.impl';
+import { envs } from '../plugins/envs.plugin';
 import { CronService } from './cron/cron-service';
 
 const fileSystemLogRepository = new LogRepositoryImpl(
@@ -12,7 +13,7 @@ export class Server {
     public static start() {
 
         console.log('Server started...');
-
+        console.log( envs.MAILER_SECRET_KEY );
 
         // CronService.createJob(
         //     '*/5 * * * * *',
