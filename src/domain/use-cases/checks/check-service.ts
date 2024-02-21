@@ -1,4 +1,4 @@
-import { error } from 'console';
+
 
 interface CheckServiceUseCase {
     execute( url:string ):Promise<boolean>;
@@ -13,9 +13,7 @@ export class CheckService implements CheckServiceUseCase {
     constructor(
         private readonly successCallback: SuccessCallback,
         private readonly errorCallback: ErrorCallback
-    ) {
-
-    }
+    ) { }
 
     public async execute( url: string ):Promise<boolean> {
 
