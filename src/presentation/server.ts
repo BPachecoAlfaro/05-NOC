@@ -4,25 +4,30 @@ import { LogRepositoryImpl } from '../infrastructure/repositories/log.repository
 import { envs } from '../config/plugins/envs.plugin';
 import { CronService } from './cron/cron-service';
 import { EmailService } from './email/email.service';
+import { SendEmailLogs } from '../domain/use-cases/email/send-email-logs';
 
 const fileSystemLogRepository = new LogRepositoryImpl(
     new FileSystemDatasource()
-)
+);
+const emailService = new EmailService();
+
 
 export class Server {
 
     public static start() {
 
         console.log('Server started...');
-        console.log( envs.MAILER_SECRET_KEY );
 
         // TODO: Mandar email
-
-        // const emailService = new EmailService(
-        //     fileSystemLogRepository
-        // );
+        new SendEmailLogs(
+            emailService,
+            fileSystemLogRepository,
+        ).execute(
+            ['xxxxxxxxx@gmail.com','xxxxxxxx@gmail.com']
+            )
+        
         // emailService.sendEmailWithFileSystemLogs(
-        //     ['bpachecoalfaro@gmail.com','bpachecoalfaro2@gmail.com']
+        //     ['bpachecoalfaro@gmail.com','ambar.aguilar.c@gmail.com']
         // );
 
         // CronService.createJob(
