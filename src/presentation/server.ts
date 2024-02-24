@@ -7,11 +7,21 @@ import { EmailService } from './email/email.service';
 import { SendEmailLogs } from '../domain/use-cases/email/send-email-logs';
 import { MongoLogDataSource } from '../infrastructure/datasources/mongo-log.datasource';
 import { LogSeverityLevel } from '../domain/entities/log.entity';
+import { PostgreLogDatasource } from '../infrastructure/datasources/postgre-log.datasource';
+import { CheckServiceMultiple } from '../domain/use-cases/checks/check-service-multiple';
 
-const logRepository = new LogRepositoryImpl(
+const fsLogRepository = new LogRepositoryImpl(
     new FileSystemDatasource(),
-    // new MongoLogDataSource(),
 );
+
+const mongoLogRepository = new LogRepositoryImpl(
+    new MongoLogDataSource(),
+);
+
+const postgresLogRepository = new LogRepositoryImpl(
+    new PostgreLogDatasource(),
+);
+
 const emailService = new EmailService();
 
 
@@ -33,15 +43,15 @@ export class Server {
         //     ['bpachecoalfaro@gmail.com','ambar.aguilar.c@gmail.com']
         // );
 
-        const logs = await logRepository.getLogs(LogSeverityLevel.low);
-        console.log( logs );
+        // const logs = await logRepository.getLogs(LogSeverityLevel.low);
+        // console.log( logs );
 
         // CronService.createJob(
         //     '*/5 * * * * *',
         //     () => {
-        //         const url = 'http://lasdasdqwe.com/';
-        //         new CheckService(
-        //             logRepository,
+        //         const url = 'http://googadadadsle.com/';
+        //         new CheckServiceMultiple(
+        //             [fsLogRepository, postgresLogRepository, mongoLogRepository],
         //             () => console.log( `${ url } is ok` ),
         //             ( error )  => console.log( error ),
         //         ).execute( url );

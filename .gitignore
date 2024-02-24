@@ -3,4 +3,5 @@ dist/
 logs/
 .env
 mongo/
+postgres/
 # logs
